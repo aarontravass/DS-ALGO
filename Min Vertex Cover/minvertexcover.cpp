@@ -16,28 +16,49 @@ vector<ll> vertex;
 
 ll get_max(ll n){
     pair<ll,ll> ans(-1,-1);
+    forn(i,n) if(adj[i][N]>0 && ans.second<=adj[i][N]) ans=make_pair(i,adj[i][N]);
+    return ans.first;
+}
+ll getedge(ll n,ll index){
+    pair<ll,ll> ans(-1,-1);
     forn(i,n){
-        if(adj[i][N]>0 && ans.second<=adj[i][N]) ans=make_pair(i,adj[i][N]);
+        if(adj[index][i]==1 && ans.second<=adj[i][N] && adj[i][N]>0 && i!=index){
+                ans=make_pair(i,adj[i][N]);
+
+        }
     }
     return ans.first;
 }
-
 
 void vertex_cover(ll n){
     forn(u,n){
         ll index=get_max(n);
         if(index!=-1){
+            ll id=getedge(n,index);
+            if(id!=-1){
             visited[index]=1;
+            visited[id]=1;
             vertex.push_back(index);
-            forn(v,n){
-                if(adj[index][v]!=0){
-                    adj[index][v]=0;
-                    adj[v][index]=0;
-                    adj[index][N]--;
-                    adj[v][N]--;
-                }
+            vertex.push_back(id);
+                forn(v,n){
+                    if(adj[index][v]!=0){
+                        adj[index][v]=0;
+                        adj[v][index]=0;
+                        visited[v]=1;
+                        adj[index][N]--;
+                        adj[v][N]--;
+                    }
+                    if(adj[id][v]!=0){
+                        adj[id][v]=0;
+                        adj[v][id]=0;
+                        visited[v]=1;
+                        adj[id][N]--;
+                        adj[v][N]--;
+                    }
 
+                }
             }
+
 
         }
 
