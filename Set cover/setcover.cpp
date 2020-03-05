@@ -2,31 +2,31 @@
 #define forn(i,n) for(int i=0;i<n;i++)
 #define N 10
 using namespace std;
- 
+
 set<int> s[N], ans;
 vector<int> as;
 bool visited[N];
 vector<double> cost(N);
-vector<int> origcost(N);
+vector<double> origcost(N);
 set<int> U;
 int c=0;
- 
- 
+
+
 int getcost(int n){
     pair<int,int> a(-1,INT_MAX);
- 
+
     forn(i,n){
     	if(!visited[i]){
         vector<int> temp;
         set_difference(s[i].begin(),s[i].end(),ans.begin(),ans.end(),back_inserter(temp));
-        cost[i]=cost[i]/temp.size();}
+        cost[i]=origcost[i]/temp.size();}
     }
     forn(i,n){
         if(cost[i]<a.second && !visited[i]) a=make_pair(i,cost[i]);
     }
     return a.first;
 }
- 
+
 int setcover(int n){
     forn(i,n){
         int id=getcost(n);
@@ -39,19 +39,19 @@ int setcover(int n){
                     ans.insert(*itr);
                 }
                 //cout<<c<<endl;
- 
+
         }
         vector<int> temp;
         set_intersection(U.begin(),U.end(),ans.begin(),ans.end(),back_inserter(temp));
         if(temp.size()==U.size()){
             break;
         }
- 
- 
+        
+
     }
     return c;
 }
- 
+
 int main()
 {
     int n;
@@ -72,12 +72,12 @@ int main()
             s[i].insert(temp);
         }
     }
-    forn(i,n) {cin>>cost[i];origcost[i]=cost[i];}
- 
+    forn(i,n) {cin>>origcost[i];}
+
     cout<<setcover(n)<<endl;
     for(auto itr=as.begin();itr!=as.end();itr++){
         cout<<*itr+1<<" ";
     }
- 
+
     return 0;
 }
