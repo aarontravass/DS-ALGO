@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define forn(i,n) for(int i=0;i<n;i++)
+#define forn(i,n) for(long long int i=0;i<n;i++)
 #define ll long long int
 
 using namespace std;
