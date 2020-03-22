@@ -32,7 +32,7 @@ auto make_data(ll val){
 }
 
 auto combine(data &a,data &b){
-    //ultra based combine function for easier understanding
+    //ultra based combine function for easier coding
     data res;
     res.left=a.left;
     res.right=b.right;
